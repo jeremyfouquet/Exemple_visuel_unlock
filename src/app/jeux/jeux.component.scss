@@ -1,0 +1,57 @@
+#connexion-section, #jeu-section {
+    display: flex;
+    height: 100vh;
+}
+#connexion-section {
+    align-items: center;
+    justify-content: center;
+}
+#jeu-section {
+    justify-content: space-between;
+    // align-items: center;
+    text-align: center;
+}
+#gauche {
+    overflow: auto;
+}
+#droite {
+    overflow: auto;
+}
+
+#connexion-section {
+    background-color: #23b5ef;
+}
+#jeu-section {
+    background-color: #D1D1D1;
+}
+#desactiveInput {
+    height: 80px;
+    width: 240px;
+    z-index: 1;
+    float: right;
+    position: absolute;
+}
+#clavier {
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem;
+    .touch {
+        cursor: pointer;
+    }
+}
+.float-left {
+    float: left;
+}
+form {
+    margin-top: 24px;
+}
+#chat {
+    min-height: 10rem;
+    max-height: 18rem;
+    overflow: auto;
+    background-color: white;
+    border-radius: 5px;
+    img {
+        margin-right: 5px;
+    }
+}

@@ -1,0 +1,94 @@
+<div *ngIf="enAttente(); else elseBlock" id="connexion-section" class="text-center">
+    <form>
+      <label for="pseudo" class="h3 font-weight-normal">Rejoindre une partie</label>
+      <input #pseudo type="text" id="pseudo" class="form-control mb-3 mt-3" placeholder="Entrez votre pseudo" required autofocus>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="connexion(pseudo.value)">Valider</button>
+    </form>
+</div>
+
+<ng-template #elseBlock>
+  <div id="jeu-section" class="row-container">
+
+    <div
+    id="gauche"
+    class="d-flex justify-content-center align-items-center flex-wrap col-lg-10 col-9">
+      <p *ngIf="bravo">Bravo vous avez réussi à sortir en {{bravo}} minutes !</p>
+      <ng-container
+      *ngFor="let indice of jeux.indices">
+        <app-indice
+        [indice]="indice"
+        (erreur)="erreurIndice($event)"
+        (combinaison)="ajouterIndice($event)"></app-indice>
+      </ng-container>
+    </div>
+
+    <div
+    id="droite"
+    class="text-center col-lg-2 col-3">
+      <div>{{this.jeux.nom}}</div>
+      <div>{{getChrono(this.jeux.chrono)}}</div>
+      <form id="indiceForm" [formGroup]="indiceForm" (ngSubmit)="rechercheIndice()">
+        <label for="indice" class="h3 font-weight-normal">Recherche d'indice</label>
+        <input type="number" id="indice" class="form-control" placeholder="Entrez un numéro" formControlName="indice">
+      </form>
+      <form id="codeForm" [formGroup]="codeForm" (ngSubmit)="rechercheCode()">
+        <div id="desactiveInput"></div>
+        <label for="code" class="h3 font-weight-normal">Code</label>
+        <input type="number" id="code" class="form-control" placeholder="Entrez un code" formControlName="code">
+        <div
+        id="clavier"
+        >
+          <div
+          class="d-flex flex-lg-nowrap justify-content-around">
+            <div *ngFor="let v of [1, 2, 3]" class="touch" (click)="enregistreCode(v)"><h3>{{v}}</h3></div>
+          </div>
+          <div
+          class="d-flex flex-lg-nowrap justify-content-around">
+          <div *ngFor="let v of [4, 5, 6]" class="touch" (click)="enregistreCode(v)"><h3>{{v}}</h3></div>
+          </div>
+          <div
+          class="d-flex flex-lg-nowrap justify-content-around">
+          <div *ngFor="let v of [7, 8, 9]" class="touch" (click)="enregistreCode(v)"><h3>{{v}}</h3></div>
+          </div>
+          <div
+          class="d-flex flex-lg-nowrap justify-content-around">
+            <div class="touch" (click)="enregistreCode(0)"><h3>0</h3></div>
+          </div>
+          <div
+          class="d-flex flex-lg-nowrap justify-content-around">
+            <div class="btn btn-secondary mr-1" (click)="codeForm.reset()">Retour</div>
+            <button type="submit" class="btn btn-primary mr-1">Valider</button>
+          </div>
+        </div>
+        <div *ngIf="codeTeste" class="float-left">
+          <div *ngIf="codeForm.controls['code'].errors">Le code doit être à 4 chiffres</div>
+          <div *ngIf="codeErreur">Ce n'est pas le bon code</div>
+        </div>
+      </form>
+      <form id="chatForm" [formGroup]="chatForm" (ngSubmit)="envoiMessage()">
+        <h3>Equipe</h3>
+        <div
+        *ngFor="let joueur of jeux.equipe">
+          <app-joueur [joueur]="joueur"></app-joueur>
+        </div>
+        <div
+        id="chat"
+        >
+          <ng-container
+          *ngFor="let joueur of jeux.equipe">
+            <ng-container
+            *ngFor="let message of joueur.notes">
+              <div class="d-flex justify-content-start">
+                <img [src]="joueur.img" alt="Avatar" class="rounded-circle" style="width: 20px; height: 20px;">
+                <p class=" m-0">{{message.message}}</p>
+                <!-- <span class="time-right">11:00</span> -->
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <input type="text" id="message" class="form-control" placeholder="Entrez votre message ..." formControlName="message">
+      </form>
+    </div>
+
+  </div>
+</ng-template>
