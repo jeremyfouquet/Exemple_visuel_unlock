@@ -10,3 +10,35 @@ h3.bleu {
 h3.blanc {
     background-color: white;
 }
+.card{
+    transform-style: preserve-3d;
+    height: 392px;
+    border: 0.1rem solid #434244;
+    margin: 2px;
+    position: relative;
+    transition: transform 1s;
+    transition-delay: 0.5s;
+}
+.face{
+    background-color: #898B8D;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    backface-visibility: hidden;
+}
+.recto{
+    z-index: 0;
+    img{
+        margin: auto;
+    }
+
+}
+.verso{
+    z-index: 1;
+    transform: rotateY(180deg);
+}
+.retourne{
+    transform: rotateY(180deg);
+}

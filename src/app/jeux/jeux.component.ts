@@ -35,7 +35,7 @@ export class JeuxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.connexion("Sol");
+    this.connexion("Sol");
   }
 
   public enAttente() {

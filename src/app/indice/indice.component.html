@@ -1,13 +1,25 @@
-<div *ngIf="!activer; else elseBlock" class="card" style="width: 18rem;">
-    <h3 [className]="indice.combinable ? rougeOuBleu(indice.combinable.couleur) : 'blanc'">{{indice.nom}} {{indice.id}}</h3>
-    <img class="card-img-top" [src]="indice.img" alt="Card image cap">
-    <div *ngIf="!activer; else elseBlock"class="card-body">
-        <p>{{indice.description}}</p>
-        <form *ngIf="indice.combinable" [formGroup]="combinaisonForm" (ngSubmit)="testerCombinaison()">
-            <label for="combinaison" class="h3 font-weight-normal">Combiner</label>
-            <input type="number" id="combinaison" class="form-control" placeholder="Entrez un numéro" formControlName="combinaison">
-        </form>
-        <button *ngIf="indice.machine?.active" class="btn btn-primary" (click)="utiliser()">Utiliser</button>
+<div
+*ngIf="!activer; else elseBlock"
+class="card"
+style="width: 18rem;"
+[ngClass]="{'retourne': retourne}"
+(mouseenter)="retourne = true"
+(mouseleave)="retourne = false"
+>
+    <div class="face recto">
+        <h3 [className]="indice.combinable ? rougeOuBleu(indice.combinable.couleur) : 'blanc'">{{indice.nom}} {{indice.id}}</h3>
+        <img class="card-img-top" [src]="indice.img" alt="Card image cap">
+    </div>
+    <div class="face verso">
+        <h3 [className]="indice.combinable ? rougeOuBleu(indice.combinable.couleur) : 'blanc'">{{indice.nom}} {{indice.id}}</h3>
+        <div *ngIf="!activer; else elseBlock"class="card-body">
+            <p>{{indice.description}}</p>
+            <form *ngIf="indice.combinable" [formGroup]="combinaisonForm" (ngSubmit)="testerCombinaison()">
+                <label for="combinaison" class="h3 font-weight-normal">Combiner</label>
+                <input type="number" id="combinaison" class="form-control" placeholder="Entrez un numéro" formControlName="combinaison">
+            </form>
+            <button *ngIf="indice.machine?.active" class="btn btn-primary" (click)="utiliser()">Utiliser</button>
+        </div>
     </div>
 </div>
 <ng-template #elseBlock>

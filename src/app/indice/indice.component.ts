@@ -15,6 +15,7 @@ export class IndiceComponent implements OnInit {
   // public indice!: Indice;
 
   public activer: boolean = false;
+  public retourne: boolean = false;
 
   public machineForm: FormGroup = this._formBuilder.group({
     choix: ''
