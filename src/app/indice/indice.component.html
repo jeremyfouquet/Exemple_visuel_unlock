@@ -1,39 +1,83 @@
 <div
-*ngIf="!activer; else elseBlock"
 class="card"
-style="width: 18rem;"
+style="width: 18rem; "
 [ngClass]="{'retourne': retourne}"
-(mouseenter)="retourne = true"
-(mouseleave)="retourne = false"
 >
+<!-- *ngIf="!activer; else elseBlock"
+(mouseenter)="retourne = true"
+(mouseleave)="retourne = false" -->
     <div class="face recto">
-        <h3 [className]="indice.combinable ? rougeOuBleu(indice.combinable.couleur) : 'blanc'">{{indice.nom}} {{indice.id}}</h3>
+        <div [ngClass]="'carte-titre'" [className]="indice.type === Type.combinable ? rougeOuBleu(indice) : 'blanc'">
+            <h3 >{{indice.nom}} {{indice.id}}</h3>
+            <mat-icon (click)="retourne = !retourne" >cached</mat-icon>
+        </div>
         <img class="card-img-top" [src]="indice.img" alt="Card image cap">
+        <!-- <div class="img" [ngStyle]="{'background-image':'url('+indice.img+')'}" alt="Card image cap"></div> -->
     </div>
     <div class="face verso">
-        <h3 [className]="indice.combinable ? rougeOuBleu(indice.combinable.couleur) : 'blanc'">{{indice.nom}} {{indice.id}}</h3>
-        <div *ngIf="!activer; else elseBlock"class="card-body">
+        <div [ngClass]="'carte-titre'" [className]="indice.type === Type.combinable ? rougeOuBleu(indice) : 'blanc'">
+            <h3>{{indice.nom}} {{indice.id}}</h3>
+            <mat-icon (click)="retourne = !retourne">cached</mat-icon>
+        </div>
+        <div *ngIf="!activer; else elseBlock" class="card-body">
             <p>{{indice.description}}</p>
-            <form *ngIf="indice.combinable" [formGroup]="combinaisonForm" (ngSubmit)="testerCombinaison()">
+            <form *ngIf="indice.type === Type.combinable" [formGroup]="combinaisonForm" (ngSubmit)="testerCombinaison()">
                 <label for="combinaison" class="h3 font-weight-normal">Combiner</label>
                 <input type="number" id="combinaison" class="form-control" placeholder="Entrez un numéro" formControlName="combinaison">
             </form>
-            <button *ngIf="indice.machine?.active" class="btn btn-primary" (click)="utiliser()">Utiliser</button>
+            <button *ngIf="indice.type === Type.machine" class="btn btn-primary" (click)="utiliser()">Utiliser</button>
+            <form *ngIf="indice.type === Type.code" id="codeForm" [formGroup]="codeForm" (ngSubmit)="rechercheCode.emit()">
+                <div id="desactiveInput"></div>
+                <!-- <label for="code" class="h3 font-weight-normal">Code</label> -->
+                <input type="number" id="code" class="form-control" [placeholder]="codePlaceholder" formControlName="code">
+                <div
+                id="clavier"
+                >
+                    <div
+                    class="d-flex flex-lg-nowrap justify-content-around">
+                        <div *ngFor="let v of [1, 2, 3]" class="touch" (click)="enregistreCode(v)"><h3>{{v}}</h3></div>
+                    </div>
+                    <div
+                    class="d-flex flex-lg-nowrap justify-content-around">
+                    <div *ngFor="let v of [4, 5, 6]" class="touch" (click)="enregistreCode(v)"><h3>{{v}}</h3></div>
+                    </div>
+                    <div
+                    class="d-flex flex-lg-nowrap justify-content-around">
+                    <div *ngFor="let v of [7, 8, 9]" class="touch" (click)="enregistreCode(v)"><h3>{{v}}</h3></div>
+                    </div>
+                    <div
+                    class="d-flex flex-lg-nowrap justify-content-around">
+                        <div class="touch" (click)="enregistreCode(0)"><h3>0</h3></div>
+                    </div>
+                    <div
+                    class="d-flex flex-lg-nowrap justify-content-around">
+                        <div class="btn btn-secondary mr-1" (click)="codeForm.reset()">Cancel</div>
+                        <button type="submit" class="btn btn-primary mr-1">Valider</button>
+                    </div>
+                </div>
+                <!-- <div *ngIf="codeTeste" class="float-left">
+                    <div *ngIf="codeForm.controls['code'].errors">Le code doit être à 4 chiffres</div>
+                    <div *ngIf="codeErreur">Ce n'est pas le bon code</div>
+                </div> -->
+            </form>
+            <!-- indice.machine?.active -->
         </div>
+
+        <ng-template #elseBlock>
+            <!-- <div class="card"> -->
+            <!-- style="width: 18rem;" -->
+                <form [formGroup]="machineForm" (ngSubmit)="testerMachine()">
+                    <p>Séléctionnez une réponse</p>
+                    <div *ngFor="let choix of indice.machine?.choix" class="form-check">
+                        <input [id]=choix class="form-check-input" type="radio" [value]="choix" formControlName="choix">
+                        <label class="form-check-label" [for]="choix">
+                            <img class="card-img-top" style="width: 4rem;" [src]="choix" alt="form image">
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-1">Valider</button>
+                    <button class="btn btn-secondary mr-1" (click)="retour()">Retour</button>
+                </form>
+            <!-- </div> -->
+        </ng-template>
     </div>
 </div>
-<ng-template #elseBlock>
-    <div class="card" style="width: 18rem;">
-        <form [formGroup]="machineForm" (ngSubmit)="testerMachine()">
-            <p>Séléctionnez une réponse</p>
-            <div *ngFor="let choix of indice.machine?.choix" class="form-check">
-                <input [id]=choix class="form-check-input" type="radio" [value]="choix" formControlName="choix">
-                <label class="form-check-label" [for]="choix">
-                    <img class="card-img-top" style="width: 4rem;" [src]="choix" alt="form image">
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary mr-1">Valider</button>
-            <button class="btn btn-secondary mr-1" (click)="retour()">Retour</button>
-        </form>
-    </div>
-</ng-template>

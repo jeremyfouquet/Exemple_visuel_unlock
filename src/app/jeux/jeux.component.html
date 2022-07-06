@@ -17,8 +17,11 @@
       *ngFor="let indice of jeux.indices">
         <app-indice
         [indice]="indice"
+        [codeForm]="codeForm"
+        [codePlaceholder]="codePlaceholder"
         (erreur)="erreurIndice($event)"
-        (combinaison)="ajouterIndice($event)"></app-indice>
+        (combinaison)="ajouterIndice($event)"
+        (rechercheCode)="rechercheCode()"></app-indice>
       </ng-container>
     </div>
 
@@ -31,7 +34,7 @@
         <label for="indice" class="h3 font-weight-normal">Recherche d'indice</label>
         <input type="number" id="indice" class="form-control" placeholder="Entrez un numéro" formControlName="indice">
       </form>
-      <form id="codeForm" [formGroup]="codeForm" (ngSubmit)="rechercheCode()">
+      <!-- <form id="codeForm" [formGroup]="codeForm" (ngSubmit)="rechercheCode()">
         <div id="desactiveInput"></div>
         <label for="code" class="h3 font-weight-normal">Code</label>
         <input type="number" id="code" class="form-control" placeholder="Entrez un code" formControlName="code">
@@ -64,7 +67,7 @@
           <div *ngIf="codeForm.controls['code'].errors">Le code doit être à 4 chiffres</div>
           <div *ngIf="codeErreur">Ce n'est pas le bon code</div>
         </div>
-      </form>
+      </form> -->
       <form id="chatForm" [formGroup]="chatForm" (ngSubmit)="envoiMessage()">
         <h3>Equipe</h3>
         <div
