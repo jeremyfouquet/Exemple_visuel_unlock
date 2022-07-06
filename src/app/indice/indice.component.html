@@ -11,7 +11,7 @@ style="width: 18rem; "
             <h3 >{{indice.nom}} {{indice.id}}</h3>
             <mat-icon (click)="retourne = !retourne" >cached</mat-icon>
         </div>
-        <img class="card-img-top" [src]="indice.img" alt="Card image cap">
+        <img class="card-img-top" [src]="'assets/'+indice.img" alt="Card image cap">
         <!-- <div class="img" [ngStyle]="{'background-image':'url('+indice.img+')'}" alt="Card image cap"></div> -->
     </div>
     <div class="face verso">
@@ -25,7 +25,7 @@ style="width: 18rem; "
                 <label for="combinaison" class="h3 font-weight-normal">Combiner</label>
                 <input type="number" id="combinaison" class="form-control" placeholder="Entrez un numéro" formControlName="combinaison">
             </form>
-            <button *ngIf="indice.type === Type.machine" class="btn btn-primary" (click)="utiliser()">Utiliser</button>
+            <button *ngIf="indice.type === Type.machine && indice.machine?.active" class="btn btn-primary" (click)="utiliser()">Utiliser</button>
             <form *ngIf="indice.type === Type.code" id="codeForm" [formGroup]="codeForm" (ngSubmit)="rechercheCode.emit()">
                 <div id="desactiveInput"></div>
                 <!-- <label for="code" class="h3 font-weight-normal">Code</label> -->
@@ -71,7 +71,7 @@ style="width: 18rem; "
                     <div *ngFor="let choix of indice.machine?.choix" class="form-check">
                         <input [id]=choix class="form-check-input" type="radio" [value]="choix" formControlName="choix">
                         <label class="form-check-label" [for]="choix">
-                            <img class="card-img-top" style="width: 4rem;" [src]="choix" alt="form image">
+                            <img class="card-img-top" style="width: 4rem;" [src]="'assets/'+choix" alt="form image">
                         </label>
                     </div>
                     <button type="submit" class="btn btn-primary mr-1">Valider</button>

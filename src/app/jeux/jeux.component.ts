@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Indice, INDICE_LIST, Type } from '../indice';
+import { Indice, Type } from '../indice';
 import { Jeux, Statut } from '../jeux';
 import { Joueur, Notes } from '../joueur';
+import { IndiceService } from '../services/indice.service';
+import { JeuxService } from '../services/jeux.service';
+import { JoueurService } from '../services/joueur.service';
 
 @Component({
   selector: 'app-jeux',
@@ -32,38 +35,52 @@ export class JeuxComponent implements OnInit {
   public bravo!: string;
 
   constructor(
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _joueurService: JoueurService,
+    private _jeuxService: JeuxService,
+    private _indiceService: IndiceService
   ) { }
 
   ngOnInit(): void {
-    this.connexion("Sol");
+    this.connexion("SherlockHolmes", "agent1.png");
   }
 
   public enAttente() {
     return this.jeux?.statut !== Statut.enCours;
   }
 
-  public connexion(pseudo: string) {
+  public connexion(pseudo: string, avatar: string) {
     if(!pseudo){return};
     this.joueurConnecte = {
-      id: 0,
+      id: 120,
       pseudo: pseudo,
-      img: "assets/agent1.png",
+      img: avatar,
       notes: []
     };
-    this.jeux = {
-      id: 0,
-      nom: "Tutorial",
-      equipe: [this.joueurConnecte],
-      statut: Statut.enCours,
-      chrono: 600,
-      indices: INDICE_LIST.filter((x: Indice) => x.type === Type.lieu),
-      deck: INDICE_LIST.filter((x: Indice) => x.type != Type.lieu),
-      code: 9372
-    }
+
+    let equipe: Joueur[];
+    this._joueurService.getAll().subscribe(
+      ( joueurs: Joueur[] ) => {
+        joueurs.push(this.joueurConnecte);
+        console.log("joueurs:\n", joueurs);
+        equipe = joueurs;
+      }
+    )
+    this._jeuxService.getAll().subscribe(
+      ( jeux: Jeux ) => {
+        console.log("jeux:\n", jeux);
+        jeux.equipe = equipe;
+        this.jeux = jeux;
+      }
+    )
+    this._indiceService.getAll().subscribe(
+      ( indices: Indice[] ) => {
+        console.log("indices:\n", indices);
+        this.jeux.indices = indices.filter((x: Indice) => x.type === Type.lieu);
+        this.jeux.deck = indices.filter((x: Indice) => x.type != Type.lieu);
+      }
+    )
     this._topChrono();
-    // joueur.maClass();
-    // this.jeu.maClass();
   }
 
   //https://askcodez.com/comment-convertir-les-secondes-en-minutes-et-heures-en-javascript.html

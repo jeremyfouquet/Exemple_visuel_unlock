@@ -64,9 +64,9 @@ export class IndiceComponent implements OnInit {
     if (choix === this.indice.machine?.reponse) {
       this.indice.img = this.indice.machine?.nouvelleimg? this.indice.machine.nouvelleimg : this.indice.img;
       this.indice.description = this.indice.machine?.nouvelledescription? this.indice.machine.nouvelledescription : this.indice.description;
-      // if (this.indice.machine) {
-      //   this.indice.machine.active = false;
-      // }
+      if (this.indice.machine) {
+        this.indice.machine.active = false;
+      }
     } else {
       this.erreur.emit(60);
     }

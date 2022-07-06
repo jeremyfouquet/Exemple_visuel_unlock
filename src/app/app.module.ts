@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { JeuxComponent } from './jeux/jeux.component';
 import { JoueurComponent } from './joueur/joueur.component';
 import { IndiceComponent } from './indice/indice.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { IndiceComponent } from './indice/indice.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
