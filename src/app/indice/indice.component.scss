@@ -1,23 +1,31 @@
 p, h3 {
     margin: 0;
 }
-h3.rouge {
-    background-color: #F26548;
-}
-h3.bleu {
-    background-color: #79AEDE;
-}
-h3.blanc {
-    background-color: white;
+.carte-titre {
+    &.rouge {
+        background-color: #F26548;
+    }
+    &.bleu {
+        background-color: #79AEDE;
+    }
+    &.blanc {
+        background-color: white;
+    }
+    .mat-icon {
+        position: absolute;
+        top: 0.1rem;
+        right: 0.1rem;
+        cursor: pointer;
+    }
 }
 .card{
     transform-style: preserve-3d;
-    height: 392px;
+    height: 386px;
     border: 0.1rem solid #434244;
     margin: 2px;
     position: relative;
     transition: transform 1s;
-    transition-delay: 0.5s;
+    // transition-delay: 0.5s;
 }
 .face{
     background-color: #898B8D;
@@ -33,6 +41,11 @@ h3.blanc {
     img{
         margin: auto;
     }
+    // .img{
+    //     background-size: contain;
+    //     background-repeat: no-repeat;
+    //     height: 100%;
+    // }
 
 }
 .verso{
@@ -41,4 +54,26 @@ h3.blanc {
 }
 .retourne{
     transform: rotateY(180deg);
+}
+
+#desactiveInput {
+    height: 40px;
+    width: 285px;
+    z-index: 1;
+    float: right;
+    position: absolute;
+}
+#clavier {
+    background-color: white;
+    border-radius: 5px;
+    padding: 0.5rem;
+    .touch {
+        color: white;
+        background-color: #5C636A;
+        border-radius: 10px;
+        border: 2px double #898B8D;
+        width: 30%;
+        margin-bottom: 0.2rem;
+        cursor: pointer;
+    }
 }

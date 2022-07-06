@@ -24,24 +24,24 @@
 #jeu-section {
     background-color: #D1D1D1;
 }
-#desactiveInput {
-    height: 80px;
-    width: 240px;
-    z-index: 1;
-    float: right;
-    position: absolute;
-}
-#clavier {
-    background-color: white;
-    border-radius: 5px;
-    padding: 1rem;
-    .touch {
-        cursor: pointer;
-    }
-}
-.float-left {
-    float: left;
-}
+// #desactiveInput {
+//     height: 80px;
+//     width: 240px;
+//     z-index: 1;
+//     float: right;
+//     position: absolute;
+// }
+// #clavier {
+//     background-color: white;
+//     border-radius: 5px;
+//     padding: 1rem;
+//     .touch {
+//         cursor: pointer;
+//     }
+// }
+// .float-left {
+//     float: left;
+// }
 form {
     margin-top: 24px;
 }
