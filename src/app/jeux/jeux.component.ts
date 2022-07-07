@@ -4,7 +4,6 @@ import { forkJoin, Observable } from 'rxjs';
 import { Indice, Type } from '../indice';
 import { Jeux, Statut } from '../jeux';
 import { Joueur, Notes } from '../joueur';
-import { IndiceService } from '../services/indice.service';
 import { JeuxService } from '../services/jeux.service';
 import { JoueurService } from '../services/joueur.service';
 
@@ -38,8 +37,7 @@ export class JeuxComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _joueurService: JoueurService,
-    private _jeuxService: JeuxService,
-    private _indiceService: IndiceService
+    private _jeuxService: JeuxService
   ) { }
 
   ngOnInit(): void {
