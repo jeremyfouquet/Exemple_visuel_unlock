@@ -66,6 +66,7 @@ export class IndiceComponent implements OnInit {
       this.indice.description = this.indice.machine?.nouvelledescription? this.indice.machine.nouvelledescription : this.indice.description;
       if (this.indice.machine) {
         this.indice.machine.active = false;
+        this.retourne = false;
       }
     } else {
       this.erreur.emit(60);

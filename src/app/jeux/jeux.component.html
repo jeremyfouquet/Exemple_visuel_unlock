@@ -2,7 +2,7 @@
     <form>
       <label for="pseudo" class="h3 font-weight-normal">Rejoindre une partie</label>
       <input #pseudo type="text" id="pseudo" class="form-control mb-3 mt-3" placeholder="Entrez votre pseudo" required autofocus>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="connexion(pseudo.value, 'agent1.png')">Valider</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="connexion(pseudo.value)">Valider</button>
     </form>
 </div>
 
@@ -81,7 +81,7 @@
           *ngFor="let joueur of jeux.equipe">
             <ng-container
             *ngFor="let message of joueur.notes">
-              <div class="d-flex justify-content-start">
+              <div class="d-flex justify-content-start text-justify m-2">
                 <img [src]="'assets/'+joueur.img" alt="Avatar" class="rounded-circle" style="width: 20px; height: 20px;">
                 <p class=" m-0">{{message.message}}</p>
                 <!-- <span class="time-right">11:00</span> -->

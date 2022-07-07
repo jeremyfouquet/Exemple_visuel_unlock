@@ -1,5 +1,11 @@
 [
     {
+        "id": 120,
+        "pseudo": "SherlockHolmes",
+        "img": "agent1.png",
+        "notes": []
+    },
+    {
         "id": 121,
         "pseudo": "TonyTonyChopper",
         "img": "agent2.png",
