@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  indicesApiUrl: "/assets/data/indices.json",
+  jeuxApiUrl: "/assets/data/jeux.json",
+  joueurApiUrl: "/assets/data/joueurs.json"
 };
 
 /*

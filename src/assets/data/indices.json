@@ -1,0 +1,124 @@
+[
+    {
+        "id": 0,
+        "nom": "Bureau",
+        "description": "Voici la pièce où vous êtes enfermés. Plusieurs éléments sont visibles. Vous pouvez maintenant révéler les cinq indices dont vous voyer le numéro. Pour cela entrez chaque numéro que vous voyez dans le champ \"Recherche d'indice\".",
+        "img": "bureau.png",
+        "numerosIndices": [11, 42, 35, 69, 21],
+        "defausse": [],
+        "type": "lieu"
+    },
+    {
+        "id": 11,
+        "nom": "Une Clé",
+        "description": "Vous pouvez combiner cet objet avec un objet rouge. Pour cela entrez dans le champ \"Combiner\" de la carte le numéro de l'objet avec lequel vous souhaitez le combiner. Mais attention, si ce n'est pas le bon objet vous aurez une pénalité!",
+        "img": "cle.png",
+        "numerosIndices": [],
+        "defausse": [],
+        "type": "combinable",
+        "combinable": {
+            "numIndice": 11,
+            "numCombine": 46,
+            "couleur": "bleu"
+        }
+    },
+    {
+        "id": 21,
+        "nom": "La Porte de sortie",
+        "description": "Elle est commandée par un digicode. Pour sortir et terminer le tutoriel, vous devez entrer un code à 4 chiffres à l'aide du digicode ci-dessous. Cherchez dans la pièce.",
+        "img": "porte.png",
+        "defausse": [],
+        "numerosIndices": [],
+        "type": "code"
+    },
+    {
+        "id": 35,
+        "nom": "Un coffre",
+        "description": "Il est fermé à clé. Vous pouvez combiner cet objet avec un objet bleu. Pour cela entrez dans le champ \"Combiner\" de la carte le numéro de l'objet avec lequel vous souhaitez le combiner. Mais attention, si ce n'est pas le bon objet vous aurez une pénalité!",
+        "img": "coffre.png",
+        "numerosIndices": [],
+        "defausse": [],
+        "type": "combinable",
+        "combinable": {
+          "numIndice": 35,
+          "numCombine": 46,
+          "couleur": "rouge"
+        }
+    },
+    {
+        "id": 42,
+        "nom": "Un écran",
+        "description": "Il n'y a pas de courant. Vous pouvez combiner cet objet avec un objet bleu. Pour cela entrez dans le champ \"Combiner\" de la carte le numéro de l'objet avec lequel vous souhaitez le combiner. Mais attention, si ce n'est pas le bon objet vous aurez une pénalité!",
+        "img": "ecran.png",
+        "defausse": [],
+        "numerosIndices": [],
+        "type": "combinable",
+        "combinable": {
+          "numIndice": 42,
+          "numCombine": 48,
+          "couleur": "rouge"
+        }
+    },
+    {
+        "id": 69,
+        "nom": "Une grille",
+        "description": "Une grille avec des picos séparés de 5 cm. Ceci est une Machine. Avant de cliquer sur le bouton \"Utiliser\" vous devez trouver des indices sur son fonctionnement dans la pièce.",
+        "img": "grille.png",
+        "defausse": [],
+        "numerosIndices": [],
+        "type": "machine",
+        "machine": {
+            "reponse": "choix3.png",
+            "nouvelleimg": "numero9.png",
+            "nouvelledescription": "Bravo vous avez activé la machine. Vous pouvez combiner ce numéro rouge avec l'objet qui vous a servie à activé la machine.",
+            "choix": ["choix1.png", "choix2.png", "choix3.png"],
+            "active": true
+        }
+    },
+    {
+        "id": 46,
+        "nom": "Un coffre",
+        "description": "Trés bien. Le coffre est ouvert. Regardez bien l'image. Il y a DEUX éléments intéréssants. Si vous voyez un numéro, utilisez le champ \"Recherche d'indice\" pour révéler l'indice.",
+        "img": "coffre2.png",
+        "numerosIndices": [16],
+        "defausse": [11, 35],
+        "type": "simple"
+    },
+    {
+        "id": 16,
+        "nom": "Un fil",
+        "description": "Un fil éléctrique de 10 cm avec des embouts en forme d'anneaux. Vous pouvez combiner cet objet avec un objet rouge. Pour cela entrez dans le champ \"Combiner\" de la carte le numéro de l'objet avec lequel vous souhaitez le combiner. Mais attention, si ce n'est pas le bon objet vous aurez une pénalité!",
+        "img": "fil.png",
+        "numerosIndices": [],
+        "defausse": [],
+        "type": "combinable",
+        "combinable": {
+          "numIndice": 16,
+          "numCombine": 25,
+          "couleur": "bleu"
+        }
+    },
+    {
+        "id": 25,
+        "nom": "Courant éléctrique",
+        "description": "Bravo. Vous avez rétabli le courant en plaçant le fil sur la machine. Vous pouvez combiner le numéro affiché en bleu avec un numéro rouge. Pour cela entrez dans le champ \"Combiner\" de la carte le numéro de l'objet avec lequel vous souhaitez combiner ce numéro. Mais attention, si ce n'est pas le bon objet vous aurez une pénalité!",
+        "img": "courant.png",
+        "numerosIndices": [],
+        "defausse": [16, 46, 69],
+        "type": "combinable",
+        "combinable": {
+          "numIndice": 6,
+          "numCombine": 48,
+          "couleur": "bleu"
+        }
+    },
+    {
+        "id": 48,
+        "nom": "Un écran",
+        "description": "Bien joué. L'écran est allumé. Cela doit servir pour sortir. Vous pouvez entrer un code dans le champ \"Code\" grâce à ces 4 chiffres.",
+        "img": "ecran2.png",
+        "numerosIndices": [],
+        "defausse": [25, 42],
+        "type": "simple"
+    }
+]

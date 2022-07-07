@@ -81,8 +81,8 @@
           *ngFor="let joueur of jeux.equipe">
             <ng-container
             *ngFor="let message of joueur.notes">
-              <div class="d-flex justify-content-start">
-                <img [src]="joueur.img" alt="Avatar" class="rounded-circle" style="width: 20px; height: 20px;">
+              <div class="d-flex justify-content-start text-justify m-2">
+                <img [src]="'assets/'+joueur.img" alt="Avatar" class="rounded-circle" style="width: 20px; height: 20px;">
                 <p class=" m-0">{{message.message}}</p>
                 <!-- <span class="time-right">11:00</span> -->
               </div>

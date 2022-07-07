@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Indice, INDICE_LIST, Type } from '../indice';
+import { forkJoin, Observable } from 'rxjs';
+import { Indice, Type } from '../indice';
 import { Jeux, Statut } from '../jeux';
 import { Joueur, Notes } from '../joueur';
+import { IndiceService } from '../services/indice.service';
+import { JeuxService } from '../services/jeux.service';
+import { JoueurService } from '../services/joueur.service';
 
 @Component({
   selector: 'app-jeux',
@@ -32,11 +36,14 @@ export class JeuxComponent implements OnInit {
   public bravo!: string;
 
   constructor(
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _joueurService: JoueurService,
+    private _jeuxService: JeuxService,
+    private _indiceService: IndiceService
   ) { }
 
   ngOnInit(): void {
-    this.connexion("Sol");
+    // this.connexion("SherlockHolmes");
   }
 
   public enAttente() {
@@ -45,25 +52,27 @@ export class JeuxComponent implements OnInit {
 
   public connexion(pseudo: string) {
     if(!pseudo){return};
-    this.joueurConnecte = {
-      id: 0,
-      pseudo: pseudo,
-      img: "assets/agent1.png",
-      notes: []
-    };
-    this.jeux = {
-      id: 0,
-      nom: "Tutorial",
-      equipe: [this.joueurConnecte],
-      statut: Statut.enCours,
-      chrono: 600,
-      indices: INDICE_LIST.filter((x: Indice) => x.type === Type.lieu),
-      deck: INDICE_LIST.filter((x: Indice) => x.type != Type.lieu),
-      code: 9372
-    }
-    this._topChrono();
-    // joueur.maClass();
-    // this.jeu.maClass();
+    const observable1: Observable<Joueur[]> = this._joueurService.getAll();
+    const observable2: Observable<Jeux> = this._jeuxService.getAll();
+    const requestDataFromMultipleSources = forkJoin([observable1, observable2]);
+    requestDataFromMultipleSources.subscribe((responseList: any[]) => {
+      const equipe: Joueur[] = responseList[0];
+      const joueur: Joueur | undefined = equipe.find((x: Joueur) => x.pseudo === pseudo);
+      const jeux: Jeux = responseList[1];
+      if (joueur) {
+        this.joueurConnecte = joueur;
+        console.log("joueur : ", joueur, "\n");
+      }
+      else {
+        console.log("aucun joueur existant avec ce pseudo");
+        return
+      };
+      console.log("equipe : ", equipe, "\n");
+      jeux.equipe = equipe;
+      this.jeux = jeux;
+      console.log("jeux : ", jeux, "\n");
+      this._topChrono();
+    })
   }
 
   //https://askcodez.com/comment-convertir-les-secondes-en-minutes-et-heures-en-javascript.html
