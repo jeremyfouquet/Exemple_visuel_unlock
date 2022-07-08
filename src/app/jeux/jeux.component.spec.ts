@@ -17,7 +17,22 @@ describe('JeuxComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it(
+    'should create', () => {
+      expect(component).toBeTruthy();
+    }
+  );
+  it(
+    'should return Hello World', () => {
+
+      const result: boolean = enAttente();
+      expect(result).toBeTruthy();
+      // expect(result).toEqual(true);
+      // return this.jeux?.statut !== Statut.enCours;
+    }
+  );
 });
+// function enAttente(): boolean {
+//   throw new Error('Function not implemented.');
+// }
+
