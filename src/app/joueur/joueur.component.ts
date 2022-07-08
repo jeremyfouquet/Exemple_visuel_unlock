@@ -9,8 +9,6 @@ import { Joueur } from '../joueur';
 export class JoueurComponent implements OnInit {
   @Input() joueur!: Joueur;
 
-  // public joueur!: Joueur;
-
   constructor() { }
 
   ngOnInit(): void {

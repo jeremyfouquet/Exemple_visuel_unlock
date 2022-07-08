@@ -1,12 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-
 import { IndiceService } from './indice.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('IndiceService', () => {
   let service: IndiceService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule]
+    });
     service = TestBed.inject(IndiceService);
   });
 

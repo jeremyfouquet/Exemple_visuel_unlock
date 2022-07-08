@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Joueur } from '../joueur';
 import { JoueurComponent } from './joueur.component';
 
 describe('JoueurComponent', () => {
   let component: JoueurComponent;
   let fixture: ComponentFixture<JoueurComponent>;
+  let joueur: Joueur;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -14,6 +15,14 @@ describe('JoueurComponent', () => {
 
     fixture = TestBed.createComponent(JoueurComponent);
     component = fixture.componentInstance;
+
+    joueur = {
+      "id": 120,
+      "pseudo": "SherlockHolmes",
+      "img": "agent1.png",
+      "notes": []
+    };
+    component.joueur = joueur;
     fixture.detectChanges();
   });
 

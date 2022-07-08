@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { forkJoin, Observable } from 'rxjs';
-import { Indice, Type } from '../indice';
+import { forkJoin, Observable, of } from 'rxjs';
+import { Indice } from '../indice';
 import { Jeux, Statut } from '../jeux';
 import { Joueur, Notes } from '../joueur';
 import { JeuxService } from '../services/jeux.service';
@@ -13,6 +13,7 @@ import { JoueurService } from '../services/joueur.service';
   styleUrls: ['./jeux.component.scss']
 })
 export class JeuxComponent implements OnInit {
+
 
   public jeux!: Jeux;
   public joueurConnecte!: Joueur;
@@ -48,28 +49,38 @@ export class JeuxComponent implements OnInit {
     return this.jeux?.statut !== Statut.enCours;
   }
 
+
+  // public connexion(pseudo: string): void {
+  //   this._joueurService.get(pseudo).subscribe((joueur) => {
+  //     this.joueurConnecte = joueur;
+  //   })
+  // }
+
   public connexion(pseudo: string) {
-    if(!pseudo){return};
+    if(!pseudo) return;
+    const that = this;
+    const observable0: Observable<Joueur> = this._joueurService.get(pseudo);
     const observable1: Observable<Joueur[]> = this._joueurService.getAll();
     const observable2: Observable<Jeux> = this._jeuxService.getAll();
-    const requestDataFromMultipleSources = forkJoin([observable1, observable2]);
-    requestDataFromMultipleSources.subscribe((responseList: any[]) => {
-      const equipe: Joueur[] = responseList[0];
-      const joueur: Joueur | undefined = equipe.find((x: Joueur) => x.pseudo === pseudo);
-      const jeux: Jeux = responseList[1];
-      if (joueur) {
-        this.joueurConnecte = joueur;
-        console.log("joueur : ", joueur, "\n");
+    const requestDataFromMultipleSources = forkJoin([observable0, observable1, observable2]);
+    requestDataFromMultipleSources.subscribe({
+      next(responseList) {
+        // console.log("resp", responseList);
+        const joueur: Joueur = responseList[0];
+        const equipe: Joueur[] = responseList[1];
+        const jeux: Jeux = responseList[2];
+        that.joueurConnecte = joueur;
+        jeux.equipe = equipe;
+        that.jeux = jeux;
+        // console.log("joueur : ", joueur, "\n");
+        // console.log("equipe : ", equipe, "\n");
+        // console.log("jeux : ", jeux, "\n");
+        // if (jeux.chrono > 0)
+          that._topChrono();
+      },
+      error(msg) {
+        console.log(msg);
       }
-      else {
-        console.log("aucun joueur existant avec ce pseudo");
-        return
-      };
-      console.log("equipe : ", equipe, "\n");
-      jeux.equipe = equipe;
-      this.jeux = jeux;
-      console.log("jeux : ", jeux, "\n");
-      this._topChrono();
     })
   }
 

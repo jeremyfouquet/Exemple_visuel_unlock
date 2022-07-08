@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   indicesApiUrl: "/assets/data/indices.json",
   jeuxApiUrl: "/assets/data/jeux.json",
-  joueurApiUrl: "/assets/data/joueurs.json"
+  joueursApiUrl: "/assets/data/joueurs.json"
 };
 
 /*

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Joueur } from '../joueur';
@@ -16,19 +16,19 @@ export class JoueurService {
    * getAll
    */
    public getAll(): Observable<Joueur[]> {
-    return this._http.get<Joueur[]>(environment.joueurApiUrl);
+    return this._http.get<Joueur[]>(environment.joueursApiUrl);
   }
 
   /**
-   * getAll
+   * get
    */
-  // public get(pseudo: string): Observable<Joueur | undefined> {
-  //   return this.getAll().pipe(
-  //     map(
-  //       (joueurs: Joueur[]) =>  {
-  //         return joueurs.filter((x: Joueur) => x.pseudo === pseudo).shift();
-  //       }
-  //     )
-  //   )
-  // }
+  public get(pseudo: string): Observable<Joueur> {
+    return this.getAll()
+    .pipe(
+    map((joueurs: Joueur[]) => {
+      const joueur = joueurs.filter((x: Joueur) => x.pseudo === pseudo).shift();
+      if (joueur) return joueur;
+      throw throwError(() => new Error('aucun joueur existant avec ce pseudo'));
+    }))
+  }
 }

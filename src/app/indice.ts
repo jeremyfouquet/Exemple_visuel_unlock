@@ -1,4 +1,4 @@
-export abstract class Indice {
+export class Indice {
     id: number = 0;
     nom: string = "";
     description: string = "";
