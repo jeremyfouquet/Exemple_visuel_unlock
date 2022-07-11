@@ -60,8 +60,7 @@ export class JeuxComponent implements OnInit {
     const that = this;
     const observable0: Observable<Joueur> = this._joueurService.get(pseudo);
     const observable1: Observable<Joueur[]> = this._joueurService.getAll();
-    // const observable2: Observable<Jeux> = this._jeuxService.getAll();
-    const observable2: Observable<Jeux> = this._jeuxService.listen();
+    const observable2: Observable<Jeux> = this._jeuxService.getAll();
     const requestDataFromMultipleSources = forkJoin([observable0, observable1, observable2]);
     requestDataFromMultipleSources.subscribe({
       next(responseList) {
