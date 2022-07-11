@@ -41,7 +41,7 @@ export class JeuxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.connexion("SherlockHolmes");
+    // this.connexion("SherlockHolmes");
   }
 
   public enAttente() {
@@ -49,38 +49,62 @@ export class JeuxComponent implements OnInit {
   }
 
 
-  // public connexion(pseudo: string): void {
-  //   this._joueurService.get(pseudo).subscribe((joueur) => {
-  //     this.joueurConnecte = joueur;
-  //   })
-  // }
-
   public connexion(pseudo: string) {
     if(!pseudo) return;
-    const that = this;
-    const observable0: Observable<Joueur> = this._joueurService.get(pseudo);
-    const observable1: Observable<Joueur[]> = this._joueurService.getAll();
-    const observable2: Observable<Jeux> = this._jeuxService.getAll();
-    const requestDataFromMultipleSources = forkJoin([observable0, observable1, observable2]);
-    requestDataFromMultipleSources.subscribe({
-      next(responseList) {
-        // console.log("resp", responseList);
-        const joueur: Joueur = responseList[0];
-        const equipe: Joueur[] = responseList[1];
-        const jeux: Jeux = responseList[2];
-        that.joueurConnecte = joueur;
-        jeux.equipe = equipe;
-        that.jeux = jeux;
-        // console.log("joueur : ", joueur, "\n");
-        // console.log("equipe : ", equipe, "\n");
-        // console.log("jeux : ", jeux, "\n");
-        that._topChrono();
-      },
-      error(msg) {
-        console.log(msg);
-      }
+
+    this._joueurService.jouer(pseudo).subscribe(
+      (joueur: Joueur) => {
+      this.joueurConnecte = joueur;
     });
+    // const observable0: Observable<Joueur> = this._joueurService.get(pseudo);
+    // const observable1: Observable<Joueur[]> = this._joueurService.getAll();
+    this._jeuxService.getNewJeux().subscribe(
+      (jeux: Jeux) => {
+      this.jeux = jeux;
+    });
+    // const requestDataFromMultipleSources = forkJoin([observable0, observable1]);
+    // requestDataFromMultipleSources.subscribe({
+    //   next(responseList) {
+    //     console.log("resp connexion", responseList);
+    //     const joueur: Joueur = responseList[0];
+    //     const equipe: Joueur[] = responseList[1];
+    //     that.joueurConnecte = joueur;
+    //     that.jeux.equipe = equipe;
+    //     that._topChrono();
+    //   },
+    //   error(msg) {
+    //     console.log('error connexion', msg);
+    //   }
+    // });
   }
+
+  // public connexion(pseudo: string) {
+  //   if(!pseudo) return;
+  //   const that = this;
+  //   const observable0: Observable<Joueur> = this._joueurService.get(pseudo);
+  //   const observable1: Observable<Joueur[]> = this._joueurService.getAll();
+  //   const observable2: Observable<Jeux> = this._jeuxService.getAll();
+  //   const requestDataFromMultipleSources = forkJoin([observable0, observable1, observable2]);
+  //   requestDataFromMultipleSources.subscribe({
+  //     next(responseList) {
+  //       console.log("resp connexion", responseList);
+  //       const joueur: Joueur = responseList[0];
+  //       const equipe: Joueur[] = responseList[1];
+  //       const jeux: Jeux = responseList[2];
+  //       that.joueurConnecte = joueur;
+  //       jeux.equipe = equipe;
+  //       that.jeux = jeux;
+  //       // console.log("joueur : ", joueur, "\n");
+  //       // console.log("equipe : ", equipe, "\n");
+  //       // console.log("jeux : ", jeux, "\n");
+  //       that.jeux.equipe = equipe;
+  //       that._topChrono();
+  //     },
+  //     error(msg) {
+  //       console.log('error connexion', msg);
+  //     }
+  //   });
+  // }
 
   //https://askcodez.com/comment-convertir-les-secondes-en-minutes-et-heures-en-javascript.html
   public getChrono(d: number): string {

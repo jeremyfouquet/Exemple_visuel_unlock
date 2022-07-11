@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  socketUrl: "http://localhost:3000",
   indicesApiUrl: "/assets/data/indices.json",
   jeuxApiUrl: "/assets/data/jeux.json",
   joueursApiUrl: "/assets/data/joueurs.json"
