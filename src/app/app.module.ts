@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { JeuxService } from './services/jeux.service';
 import { IndiceService } from './services/indice.service';
 import { JoueurService } from './services/joueur.service';
+import { SocketService } from './services/socket.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { JoueurService } from './services/joueur.service';
   providers: [
     JeuxService,
     IndiceService,
-    JoueurService
+    JoueurService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

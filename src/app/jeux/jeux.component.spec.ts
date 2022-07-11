@@ -35,6 +35,7 @@ describe('JeuxComponent', () => {
 
   it('should get providers', () => {
     expect(joueurService).toBeTruthy();
+    expect(jeuxService).toBeTruthy();
   });
 
   it('should return statue true from jeux', () => {
@@ -71,6 +72,7 @@ describe('JeuxComponent', () => {
     expect(joueurService.getAll).toHaveBeenCalled();
     expect(jeuxService.getAll).toHaveBeenCalled();
     expect(component.joueurConnecte).toBe(joueur);
+    expect(component.jeux).toBe(jeux);
     discardPeriodicTasks();
   }));
 

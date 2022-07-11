@@ -14,7 +14,6 @@ import { JoueurService } from '../services/joueur.service';
 })
 export class JeuxComponent implements OnInit {
 
-
   public jeux!: Jeux;
   public joueurConnecte!: Joueur;
 
@@ -42,7 +41,7 @@ export class JeuxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.connexion("SherlockHolmes");
+    this.connexion("SherlockHolmes");
   }
 
   public enAttente() {
@@ -61,7 +60,8 @@ export class JeuxComponent implements OnInit {
     const that = this;
     const observable0: Observable<Joueur> = this._joueurService.get(pseudo);
     const observable1: Observable<Joueur[]> = this._joueurService.getAll();
-    const observable2: Observable<Jeux> = this._jeuxService.getAll();
+    // const observable2: Observable<Jeux> = this._jeuxService.getAll();
+    const observable2: Observable<Jeux> = this._jeuxService.listen();
     const requestDataFromMultipleSources = forkJoin([observable0, observable1, observable2]);
     requestDataFromMultipleSources.subscribe({
       next(responseList) {
@@ -75,13 +75,12 @@ export class JeuxComponent implements OnInit {
         // console.log("joueur : ", joueur, "\n");
         // console.log("equipe : ", equipe, "\n");
         // console.log("jeux : ", jeux, "\n");
-        // if (jeux.chrono > 0)
-          that._topChrono();
+        that._topChrono();
       },
       error(msg) {
         console.log(msg);
       }
-    })
+    });
   }
 
   //https://askcodez.com/comment-convertir-les-secondes-en-minutes-et-heures-en-javascript.html
