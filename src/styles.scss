@@ -1,8 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 // Couleur
 $blanc: #FFFFFF;
 $grisclair: #D1D1D1;
@@ -10,3 +7,35 @@ $gris: #434244;
 $rouge: #F26548;
 $bleu: #23b5ef;
 $bleusombre: #4785ef;
+.blanc {
+    color: $blanc;
+}
+.grisclair {
+    color: $grisclair;
+}
+.gris {
+    color: $gris;
+}
+.rouge {
+    color: $rouge;
+}
+.bleu {
+    color: $bleu;
+}
+.bleusombre {
+    color: $bleusombre;
+}
+// Style Gnrl
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.text-justify {
+    text-align: justify;
+}
+.avatar {
+    width: 40px;
+}

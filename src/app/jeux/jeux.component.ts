@@ -6,7 +6,9 @@ import { Jeux, Statut } from '../jeux';
 import { Joueur, Notes } from '../joueur';
 import { JeuxService } from '../services/jeux.service';
 import { JoueurService } from '../services/joueur.service';
-
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
 @Component({
   selector: 'app-jeux',
   templateUrl: './jeux.component.html',
@@ -16,6 +18,13 @@ export class JeuxComponent implements OnInit {
 
   public jeux!: Jeux;
   public joueurConnecte!: Joueur;
+  public avatars: string[] = [];
+  public isSubmitConnexion: boolean = false;
+
+  public connexionForm: FormGroup = this._formBuilder.group({
+    pseudo: ['', [Validators.required]],
+    avatar: ['', [Validators.required]]
+  });
 
   public indiceForm: FormGroup = this._formBuilder.group({
     indice: ''
@@ -34,48 +43,66 @@ export class JeuxComponent implements OnInit {
   public codePlaceholder: string = "Entrez un code";
   public bravo!: string;
 
+  selectedFile!: ImageSnippet;
   constructor(
     private _formBuilder: FormBuilder,
     private _joueurService: JoueurService,
     private _jeuxService: JeuxService
-  ) { }
+  ) {
+    this._getAvatars().subscribe((avatars: string[]) => {
+      this.avatars = avatars;
+      this.connexionForm.controls['avatar'].patchValue(this.avatars[0]);
+    });
+  }
 
   ngOnInit(): void {
     // this.connexion("SherlockHolmes");
   }
-
+  private _getAvatars(): Observable<string[]> {
+    return of(['agent1.png', 'agent2.png', 'agent3.jpeg']);
+  }
   public enAttente() {
     return this.jeux?.statut !== Statut.enCours;
   }
 
 
-  public connexion(pseudo: string) {
-    if(!pseudo) return;
+  public connexion() {
+    this.isSubmitConnexion = true;
+    setTimeout( () => {
+      this.isSubmitConnexion = false;
+    }, 5000);
+    if(this.connexionForm.invalid) return;
+    console.log(this.connexionForm.controls['pseudo'].value);
+    console.log(this.connexionForm.controls['avatar'].value);
+    console.log('connexion');
+    this.connexionForm.reset();
+    this.connexionForm.controls['avatar'].patchValue(this.avatars[0]);
+    return;
 
-    this._joueurService.jouer(pseudo).subscribe(
-      (joueur: Joueur) => {
-      this.joueurConnecte = joueur;
-    });
-    // const observable0: Observable<Joueur> = this._joueurService.get(pseudo);
-    // const observable1: Observable<Joueur[]> = this._joueurService.getAll();
-    this._jeuxService.getNewJeux().subscribe(
-      (jeux: Jeux) => {
-      this.jeux = jeux;
-    });
-    // const requestDataFromMultipleSources = forkJoin([observable0, observable1]);
-    // requestDataFromMultipleSources.subscribe({
-    //   next(responseList) {
-    //     console.log("resp connexion", responseList);
-    //     const joueur: Joueur = responseList[0];
-    //     const equipe: Joueur[] = responseList[1];
-    //     that.joueurConnecte = joueur;
-    //     that.jeux.equipe = equipe;
-    //     that._topChrono();
-    //   },
-    //   error(msg) {
-    //     console.log('error connexion', msg);
-    //   }
+    // this._joueurService.jouer(pseudo).subscribe(
+    //   (joueur: Joueur) => {
+    //   this.joueurConnecte = joueur;
     // });
+    // // const observable0: Observable<Joueur> = this._joueurService.get(pseudo);
+    // // const observable1: Observable<Joueur[]> = this._joueurService.getAll();
+    // this._jeuxService.getNewJeux().subscribe(
+    //   (jeux: Jeux) => {
+    //   this.jeux = jeux;
+    // });
+    // // const requestDataFromMultipleSources = forkJoin([observable0, observable1]);
+    // // requestDataFromMultipleSources.subscribe({
+    // //   next(responseList) {
+    // //     console.log("resp connexion", responseList);
+    // //     const joueur: Joueur = responseList[0];
+    // //     const equipe: Joueur[] = responseList[1];
+    // //     that.joueurConnecte = joueur;
+    // //     that.jeux.equipe = equipe;
+    // //     that._topChrono();
+    // //   },
+    // //   error(msg) {
+    // //     console.log('error connexion', msg);
+    // //   }
+    // // });
   }
 
   // public connexion(pseudo: string) {

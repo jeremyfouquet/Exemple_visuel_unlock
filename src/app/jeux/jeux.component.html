@@ -1,8 +1,35 @@
 <div *ngIf="enAttente(); else elseBlock" id="connexion-section" class="text-center">
-    <form>
-      <label for="pseudo" class="h3 font-weight-normal">Rejoindre une partie</label>
-      <input #pseudo type="text" id="pseudo" class="form-control mb-3 mt-3" placeholder="Entrez votre pseudo" required autofocus>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="connexion(pseudo.value)">Valider</button>
+    <form [formGroup]="connexionForm" (ngSubmit)="connexion()">
+        <label class="h3 font-weight-normal">
+          Rejoindre une partie
+        </label>
+        <div class="form-group">
+          <input formControlName="pseudo" type="text" class="form-control mb-3 mt-3" placeholder="Entrez votre pseudo" autofocus>
+        </div>
+        <div class="form-group">
+          <fieldset
+          class="mb-3 mt-3">
+            <legend class="font-weight-normal">
+              Choisir un avatar
+            </legend>
+            <label *ngFor="let nameImg of avatars;">
+              <input
+                formControlName="avatar"
+                type="radio"
+                name="avatar"
+                [value]="nameImg"
+              />
+              <img [src]="'assets/avatar/'+nameImg"class="rounded-circle avatar">
+            </label>
+          </fieldset>
+        </div>
+        <div class="position-relative">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>
+          <div *ngIf="isSubmitConnexion" class="position-absolute w-100 blanc">
+              <div *ngIf="connexionForm.controls['pseudo'].errors">selectionnez un pseudo</div>
+              <div *ngIf="connexionForm.controls['avatar'].errors">selectionnez un avatar</div>
+          </div>
+        </div>
     </form>
 </div>
 
@@ -82,7 +109,7 @@
             <ng-container
             *ngFor="let message of joueur.notes">
               <div class="d-flex justify-content-start text-justify m-2">
-                <img [src]="'assets/'+joueur.img" alt="Avatar" class="rounded-circle" style="width: 20px; height: 20px;">
+                <img [src]="'assets/'+joueur.img" alt="Avatar" class="rounded-circle avatar">
                 <p class=" m-0">{{message.message}}</p>
                 <!-- <span class="time-right">11:00</span> -->
               </div>

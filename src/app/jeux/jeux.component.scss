@@ -1,4 +1,5 @@
 @import 'src/styles.scss';
+
 #connexion-section, #jeu-section {
     display: flex;
     height: 100vh;
@@ -10,40 +11,11 @@
 }
 #jeu-section {
     justify-content: space-between;
-    // align-items: center;
     text-align: center;
 }
-#gauche {
+#gauche, #droite {
     overflow: auto;
 }
-#droite {
-    overflow: auto;
-}
-
-// #connexion-section {
-//     background-color: $bleu;
-// }
-// #jeu-section {
-//     background-color: $grisclair;
-// }
-// #desactiveInput {
-//     height: 80px;
-//     width: 240px;
-//     z-index: 1;
-//     float: right;
-//     position: absolute;
-// }
-// #clavier {
-//     background-color: white;
-//     border-radius: 5px;
-//     padding: 1rem;
-//     .touch {
-//         cursor: pointer;
-//     }
-// }
-// .float-left {
-//     float: left;
-// }
 form {
     margin-top: 24px;
 }
@@ -56,7 +28,4 @@ form {
     img {
         margin-right: 5px;
     }
-}
-.text-justify {
-    text-align: justify;
 }
