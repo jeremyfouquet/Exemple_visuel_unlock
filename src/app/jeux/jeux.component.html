@@ -1,3 +1,4 @@
+<!-- CONNEXION FORM -->
 <div *ngIf="enAttente(); else elseBlock" id="connexion-section" class="text-center">
     <form [formGroup]="connexionForm" (ngSubmit)="connexion()">
         <label class="h3 font-weight-normal">
@@ -35,7 +36,6 @@
 
 <ng-template #elseBlock>
   <div id="jeu-section" class="row-container">
-
     <div
     id="gauche"
     class="d-flex justify-content-center align-items-center flex-wrap col-lg-10 col-9">

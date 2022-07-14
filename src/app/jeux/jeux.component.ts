@@ -58,13 +58,6 @@ export class JeuxComponent implements OnInit {
   ngOnInit(): void {
     // this.connexion("SherlockHolmes");
   }
-  private _getAvatars(): Observable<string[]> {
-    return of(['agent1.png', 'agent2.png', 'agent3.jpeg']);
-  }
-  public enAttente() {
-    return this.jeux?.statut !== Statut.enCours;
-  }
-
 
   public connexion() {
     this.isSubmitConnexion = true;
@@ -72,12 +65,20 @@ export class JeuxComponent implements OnInit {
       this.isSubmitConnexion = false;
     }, 5000);
     if(this.connexionForm.invalid) return;
-    console.log(this.connexionForm.controls['pseudo'].value);
-    console.log(this.connexionForm.controls['avatar'].value);
-    console.log('connexion');
-    this.connexionForm.reset();
-    this.connexionForm.controls['avatar'].patchValue(this.avatars[0]);
+    this._joueurService.userConnexion(this.connexionForm.controls['pseudo'].value, this.connexionForm.controls['avatar'].value);
+    // console.log(this.connexionForm.controls['pseudo'].value);
+    // console.log(this.connexionForm.controls['avatar'].value);
+    // console.log('connexion');
+    // this.connexionForm.reset();
+    // this.connexionForm.controls['avatar'].patchValue(this.avatars[0]);
     return;
+
+
+  }
+
+  public enAttente() {
+    return this.jeux?.statut !== Statut.enCours;
+  }
 
     // this._joueurService.jouer(pseudo).subscribe(
     //   (joueur: Joueur) => {
@@ -103,7 +104,6 @@ export class JeuxComponent implements OnInit {
     // //     console.log('error connexion', msg);
     // //   }
     // // });
-  }
 
   // public connexion(pseudo: string) {
   //   if(!pseudo) return;
@@ -245,6 +245,10 @@ export class JeuxComponent implements OnInit {
     indice.defausse.forEach((x:number) => {
       this.jeux.indices = this.jeux.indices.filter((y: Indice) => y.id !== x);
     })
+  }
+
+  private _getAvatars(): Observable<string[]> {
+    return of(['agent1.png', 'agent2.png', 'agent3.jpeg']);
   }
 
 }

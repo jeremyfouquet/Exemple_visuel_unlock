@@ -26,6 +26,15 @@ export class JoueurService {
     return this.joueur$.asObservable();
   };
 
+  public userConnexion(pseudo: string, avatar: string) {
+    this._socket.emit('userConnexion', pseudo, avatar);
+    // this._socket.on('jouer', (joueur: Joueur) =>{
+    //   console.log('joueur service', joueur);
+    //   this.joueur$.next(joueur);
+    // });
+    // return this.joueur$.asObservable();
+  };
+
   /**
    * getAll
    */
