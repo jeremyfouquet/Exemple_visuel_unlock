@@ -5,6 +5,7 @@ Visuel d'une interface graphique construit avec Angular, pour un projet d'applic
 ## Requirement
 
 Nodejs
+
 https://nodejs.org/en/download/
 
 ## Installation
@@ -14,6 +15,8 @@ npm install
 ## Start
 
 npm run start
+
+http://localhost:4200/
 
 ## Usage
 
